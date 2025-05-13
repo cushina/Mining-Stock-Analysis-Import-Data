@@ -295,9 +295,10 @@ public class processRawStockData {
                             values = line.split(TAB_DELIMITER);
                         }
                         swappedValues = swapValues(values, swapOrder);
+
                         if (fileType == TAB) {
                             //logSwappedValues (swappedValues);
-                            values = correctStockTicker(swappedValues);
+                            swappedValues = correctStockTicker(swappedValues);
                         }
                         //logSwappedValues (swappedValues);
                         records.add(Arrays.asList(swappedValues));
@@ -414,6 +415,7 @@ public class processRawStockData {
 
     // if number is displayed in K-thoussand or M-Million or B-Billion, convert to the full number
     private static String standardiseNumbers (String field) {
+        field = field.replace(",", "");
         String standardNumber = new String();
 
         if (Pattern.matches("-?\\d+(\\.\\d+)[BKMT]?", field)) {
